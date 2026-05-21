@@ -9,7 +9,9 @@ export type IconName =
   | 'mail'
   | 'list'
   | 'search'
-  | 'log-out';
+  | 'log-out'
+  | 'trash'
+  | 'pencil';
 
 @Component({
   selector: 'app-icon',

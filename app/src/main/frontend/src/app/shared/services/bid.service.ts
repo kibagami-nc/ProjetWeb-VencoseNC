@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, inject } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, Subject, tap } from 'rxjs';
 
 import { Bid } from '../models/bid.model';
 
@@ -11,6 +11,15 @@ export class BidService {
   private http = inject(HttpClient);
   private apiUrl = 'http://localhost:8080/api/bid';
 
+  // Stream des nouvelles annonces creees, ecoute par les pages qui affichent la liste
+  // pour s'inserer en tete sans avoir a refetch
+  private readonly bidCreated$ = new Subject<Bid>();
+  readonly bidCreated = this.bidCreated$.asObservable();
+
+  // Stream des annonces mises a jour (meme principe, ecoute par les listes)
+  private readonly bidUpdated$ = new Subject<Bid>();
+  readonly bidUpdated = this.bidUpdated$.asObservable();
+
   // Recupere toutes les annonces
   findAll(): Observable<Bid[]> {
     return this.http.get<Bid[]>(this.apiUrl);
@@ -19,5 +28,24 @@ export class BidService {
   // Recupere une annonce par son id
   findById(id: number): Observable<Bid> {
     return this.http.get<Bid>(`${this.apiUrl}/${id}`);
+  }
+
+  // Cree une nouvelle annonce (le back fixe creationDate)
+  create(payload: Partial<Bid>): Observable<Bid> {
+    return this.http.post<Bid>(this.apiUrl, payload).pipe(
+      tap(bid => this.bidCreated$.next(bid)),
+    );
+  }
+
+  // Met a jour une annonce existante
+  update(id: number, payload: Partial<Bid>): Observable<Bid> {
+    return this.http.put<Bid>(`${this.apiUrl}/${id}`, payload).pipe(
+      tap(bid => this.bidUpdated$.next(bid)),
+    );
+  }
+
+  // Supprime une annonce par son id
+  delete(id: number): Observable<void> {
+    return this.http.delete<void>(`${this.apiUrl}/${id}`);
   }
 }

@@ -16,6 +16,7 @@ CREATE TABLE bids (
     description VARCHAR(1000) NOT NULL,
     creation_date TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     price INT,
+    location VARCHAR(30),
     fk_id_user INTEGER NOT NULL,
     FOREIGN KEY (fk_id_user) REFERENCES users(id_user)
 );

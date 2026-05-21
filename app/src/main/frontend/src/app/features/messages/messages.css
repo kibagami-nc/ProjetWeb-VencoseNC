@@ -6,35 +6,33 @@
 .messages-page {
   display: grid;
   grid-template-columns: 320px 1fr;
-  width: 100%;
   max-width: 1200px;
   margin: 2rem auto;
   height: calc(100vh - 12rem);
   min-height: 500px;
-  background-color: #ffffff;
-  border-radius: 1rem;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+  background-color: var(--bg-card);
+  border-radius: var(--radius-lg);
   overflow: hidden;
 }
 
 .messages-sidebar {
   display: flex;
   flex-direction: column;
-  border-right: 1px solid #e5e5e5;
-  background-color: #fafafa;
+  border-right: 1px solid var(--border-soft);
+  background-color: var(--bg-soft);
   overflow: hidden;
 }
 
 .messages-sidebar-header {
   padding: 1.25rem 1.5rem;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid var(--border-soft);
 }
 
 .messages-sidebar-header h1 {
   margin: 0;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--text);
 }
 
 .conversation-list {
@@ -52,35 +50,28 @@
   padding: 0.85rem 1rem;
   border-bottom: 1px solid #ececec;
   cursor: pointer;
-  transition: background-color 0.15s ease;
   outline: none;
 }
 
-.conversation-item:hover {
-  background-color: #f0f0f0;
-}
-
+.conversation-item:hover,
 .conversation-item:focus-visible {
   background-color: #f0f0f0;
-  box-shadow: inset 3px 0 0 0 #0e5023;
 }
 
 .conversation-item.is-active {
-  background-color: #ffffff;
-  box-shadow: inset 3px 0 0 0 #0e5023;
+  background-color: var(--bg-card);
 }
 
 .conversation-avatar {
   width: 44px;
   height: 44px;
   border-radius: 50%;
-  background-color: #0e5023;
-  color: #ffffff;
+  background-color: var(--accent);
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
   font-weight: 600;
-  font-size: 1rem;
   flex-shrink: 0;
 }
 
@@ -104,7 +95,7 @@
 
 .conversation-name {
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--text);
   font-size: 0.95rem;
   white-space: nowrap;
   overflow: hidden;
@@ -113,7 +104,7 @@
 
 .conversation-time {
   font-size: 0.75rem;
-  color: #6b6b6b;
+  color: var(--text-muted);
   flex-shrink: 0;
 }
 
@@ -129,7 +120,7 @@
 .messages-chat {
   display: flex;
   flex-direction: column;
-  background-color: #ffffff;
+  background-color: var(--bg-card);
   overflow: hidden;
 }
 
@@ -138,14 +129,14 @@
   align-items: center;
   gap: 0.75rem;
   padding: 1rem 1.5rem;
-  border-bottom: 1px solid #e5e5e5;
+  border-bottom: 1px solid var(--border-soft);
 }
 
 .chat-peer {
   margin: 0;
   font-size: 1.1rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--text);
 }
 
 .chat-thread {
@@ -172,17 +163,17 @@
 .chat-bubble {
   padding: 0.6rem 0.95rem;
   background-color: #ececec;
-  color: #1a1a1a;
+  color: var(--text);
   border-radius: 1rem 1rem 1rem 0.25rem;
   font-size: 0.95rem;
   line-height: 1.4;
-  word-wrap: break-word;
   white-space: pre-wrap;
+  word-wrap: break-word;
 }
 
 .chat-message--mine .chat-bubble {
-  background-color: #0e5023;
-  color: #ffffff;
+  background-color: var(--accent);
+  color: #fff;
   border-radius: 1rem 1rem 0.25rem 1rem;
 }
 
@@ -196,29 +187,29 @@
   display: flex;
   gap: 0.5rem;
   padding: 0.85rem 1.25rem;
-  border-top: 1px solid #e5e5e5;
-  background-color: #fafafa;
+  border-top: 1px solid var(--border-soft);
+  background-color: var(--bg-soft);
 }
 
 .chat-input-field {
   flex: 1;
   padding: 0.65rem 0.9rem;
-  border: 1px solid #d0d0d0;
+  border: 1px solid var(--bg-surface);
   border-radius: 1.5rem;
   font-size: 0.95rem;
   outline: none;
-  background-color: #ffffff;
+  background-color: var(--bg-card);
   font-family: inherit;
 }
 
 .chat-input-field:focus {
-  border-color: #0e5023;
+  border-color: var(--accent);
 }
 
 .chat-send {
   padding: 0.6rem 1.4rem;
-  background-color: #0e5023;
-  color: #ffffff;
+  background-color: var(--accent);
+  color: #fff;
   border: none;
   border-radius: 1.5rem;
   font-size: 0.95rem;
@@ -227,7 +218,7 @@
 }
 
 .chat-send:hover:not(:disabled) {
-  background-color: #094019;
+  background-color: var(--accent-dark);
 }
 
 .chat-send:disabled {
@@ -240,7 +231,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #6b6b6b;
+  color: var(--text-muted);
   font-style: italic;
 }
 

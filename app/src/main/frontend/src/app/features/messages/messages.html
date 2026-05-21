@@ -36,7 +36,7 @@
         <h2 class="chat-peer">{{ peerName(conv) || 'Sans nom' }}</h2>
       </header>
 
-      <div class="chat-thread">
+      <div class="chat-thread" #chatThread>
         @for (msg of messages(); track msg.idMessage) {
           <div class="chat-message" [class.chat-message--mine]="isMine(msg)">
             <div class="chat-bubble">{{ msg.content }}</div>

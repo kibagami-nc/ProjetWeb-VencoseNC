@@ -38,6 +38,9 @@ public class Bid {
     @Column(name = "price")
     private Integer price;
 
+    @Column(name = "location", length = 30)
+    private String location;
+
     @Column(name = "creation_date")
     private LocalDateTime creationDate;
 

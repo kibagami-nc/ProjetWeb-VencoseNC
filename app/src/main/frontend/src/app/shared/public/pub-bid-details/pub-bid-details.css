@@ -7,14 +7,11 @@
   position: relative;
   display: grid;
   grid-template-columns: 1.4fr 1fr;
-  background-color: #ffffff;
-  border-radius: 0.75rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
-  width: 100%;
+  background-color: var(--bg-card);
+  border-radius: var(--radius-md);
   max-width: 1100px;
   margin: 0 auto;
   overflow: hidden;
-  box-sizing: border-box;
   min-height: 70vh;
 }
 
@@ -30,16 +27,16 @@
   font-size: 1.6rem;
   line-height: 1;
   cursor: pointer;
-  color: #1a1a1a;
+  color: var(--text);
   z-index: 1;
 }
 
 .modal-close:hover {
-  color: #1ea64a;
+  color: var(--primary);
 }
 
 .bid-details-image {
-  background-color: #1a1a1a;
+  background-color: var(--text);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -58,28 +55,26 @@
   padding: 2rem 2rem 1.5rem 2rem;
   gap: 1.25rem;
   overflow-y: auto;
-  box-sizing: border-box;
 }
 
 .bid-details-title {
   margin: 0;
   font-size: 1.75rem;
   font-weight: 700;
-  color: #1a1a1a;
-  line-height: 1.2;
+  color: var(--text);
 }
 
 .bid-details-price {
   margin: 0;
   font-size: 1.5rem;
   font-weight: 700;
-  color: #0e5023;
+  color: var(--accent);
 }
 
 .bid-details-meta {
   margin: 0;
   font-size: 0.85rem;
-  color: #6b6b6b;
+  color: var(--text-muted);
 }
 
 .bid-details-section {
@@ -92,31 +87,43 @@
   margin: 0;
   font-size: 1rem;
   font-weight: 600;
-  color: #1a1a1a;
+  color: var(--text);
 }
 
 .bid-details-section p {
   margin: 0;
   font-size: 0.95rem;
-  color: #2a2a2a;
+  color: var(--text);
   line-height: 1.5;
   white-space: pre-wrap;
 }
 
-.bid-details-contact {
+.bid-details-contact,
+.bid-details-edit {
   margin-top: auto;
   padding: 0.85rem 1.2rem;
-  background-color: #1ea64a;
-  color: #ffffff;
+  color: #fff;
   border: none;
-  border-radius: 0.4rem;
+  border-radius: var(--radius-sm);
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
 }
 
+.bid-details-contact {
+  background-color: var(--primary);
+}
+
 .bid-details-contact:hover {
-  background-color: #178a3c;
+  background-color: var(--primary-dark);
+}
+
+.bid-details-edit {
+  background-color: var(--warning);
+}
+
+.bid-details-edit:hover {
+  background-color: var(--warning-dark);
 }
 
 @media (max-width: 800px) {

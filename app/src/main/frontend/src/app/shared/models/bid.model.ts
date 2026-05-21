@@ -4,6 +4,7 @@ export interface Bid {
   title: string;
   description: string;
   price: number | null;
+  location: string | null;
   creationDate: string;
   userId: number;
   userFirstName: string;

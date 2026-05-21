@@ -1,10 +1,54 @@
-/* You can add global styles to this file, and also import other style files */
-
 @import "tailwindcss";
+
+/* ----------------------------------------------------------------
+ * Theme global - couleurs, fontes, rayons partages par toute l'app
+ * Les composants pointent vers ces variables au lieu de coder en dur.
+ * ---------------------------------------------------------------- */
+:root {
+  /* Verts */
+  --primary: #1ba848;        /* bouton CTA, focus, accent */
+  --primary-dark: #178a3c;   /* hover du bouton primaire */
+  --brand: #00861d;          /* fond navbar */
+  --accent: #0e5023;         /* vert fonce (bulles chat, prix, focus card) */
+  --accent-dark: #094019;    /* hover chat-send */
+
+  /* Rouges (danger / logout) */
+  --danger: #c0392b;
+  --danger-dark: #962d22;
+
+  /* Orange (action "modifier" sur ses propres ressources) */
+  --warning: #f39c12;
+  --warning-dark: #d68910;
+
+  /* Texte */
+  --text: #1a1a1a;
+  --text-muted: #6b6b6b;
+
+  /* Fonds */
+  --bg-page: #f6f6f6;
+  --bg-card: #ffffff;
+  --bg-soft: #fafafa;
+  --bg-surface: #d0d0d0;
+  --bg-readonly: #f3f3f3;
+
+  /* Bordures */
+  --border: #cfcfcf;
+  --border-soft: #e5e5e5;
+
+  /* Rayons */
+  --radius-sm: 0.4rem;
+  --radius-md: 0.75rem;
+  --radius-lg: 1rem;
+  --radius-pill: 999px;
+
+  /* Fonte d'affichage utilisee par les titres modaux et le hero */
+  --font-display: 'Luckiest Guy', cursive;
+}
 
 html, body {
   margin: 0;
   padding: 0;
-  background-color: #f6f6f6;
   min-height: 100%;
+  background-color: var(--bg-page);
+  color: var(--text);
 }

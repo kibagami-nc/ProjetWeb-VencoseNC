@@ -7,44 +7,44 @@
   min-height: 220px;
 }
 
-.footer-brand .brand-name {
+.brand-name {
   margin: 0;
   font-size: 1.25rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--text);
 }
 
-.footer-brand .brand-tagline {
+.brand-tagline {
   margin: 0.4rem 0 0 0;
   font-size: 0.95rem;
-  color: #6b6b6b;
+  color: var(--text-muted);
 }
 
-.footer-links .links-title {
+.links-title {
   margin: 0 0 0.8rem 0;
   font-size: 0.95rem;
   font-weight: 700;
-  color: #1a1a1a;
+  color: var(--text);
   text-align: right;
 }
 
-.footer-links .links-list {
+.links-list {
   list-style: none;
   margin: 0;
   padding: 0;
   text-align: right;
 }
 
-.footer-links .links-list li {
+.links-list li {
   margin-bottom: 0.4rem;
 }
 
-.footer-links .links-list a {
-  color: #6b6b6b;
+.links-list a {
+  color: var(--text-muted);
   text-decoration: none;
   font-size: 0.95rem;
 }
 
-.footer-links .links-list a:hover {
-  color: #1a1a1a;
+.links-list a:hover {
+  color: var(--text);
 }

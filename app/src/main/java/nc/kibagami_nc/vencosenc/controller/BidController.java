@@ -3,7 +3,9 @@ package nc.kibagami_nc.vencosenc.controller;
 import java.time.LocalDateTime;
 import java.util.List;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.server.ResponseStatusException;
 
 import lombok.RequiredArgsConstructor;
 import nc.kibagami_nc.vencosenc.dto.BidDto;
@@ -15,6 +17,9 @@ import nc.kibagami_nc.vencosenc.repository.BidRepository;
 @RequestMapping("/api/bid")
 @RequiredArgsConstructor
 public class BidController {
+
+    // Nombre maximum d'annonces publiees par utilisateur
+    private static final long MAX_BIDS_PER_USER = 4;
 
     private final BidRepository bidRepository;
     private final BidMapper bidMapper;
@@ -30,8 +35,15 @@ public class BidController {
     }
 
     // POST /api/bid -> cree une nouvelle annonce a partir du DTO recu
+    // Refuse si l'utilisateur a deja atteint la limite (403)
     @PostMapping
     public BidDto create(@RequestBody BidDto dto) {
+
+        if (dto.getUserId() != null
+                && bidRepository.countByUser_IdUser(dto.getUserId()) >= MAX_BIDS_PER_USER) {
+            throw new ResponseStatusException(HttpStatus.FORBIDDEN,
+                "Limite de " + MAX_BIDS_PER_USER + " annonces atteinte.");
+        }
 
         Bid bid = bidMapper.toEntity(dto);
         bid.setCreationDate(LocalDateTime.now());

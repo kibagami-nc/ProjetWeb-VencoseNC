@@ -1,0 +1,110 @@
+<div class="create-wrapper">
+  <h1 class="create-title">{{ isEdit ? 'Modifier l\'annonce' : 'Publier une annonce' }}</h1>
+
+  <div class="create-card">
+    <button type="button" class="modal-close" (click)="modal.close()" aria-label="Fermer">&times;</button>
+
+    <form class="create-form" (submit)="$event.preventDefault(); onSubmit()">
+
+      <div class="create-grid">
+        <div class="create-image" aria-label="Zone de depot d'image">
+          <span class="create-image-text">Deposer une/des image(s)</span>
+        </div>
+
+        <div class="create-fields">
+          <label class="form-field form-field--full">
+            <span class="form-label">Titre <span class="required">*</span></span>
+            <input
+              type="text"
+              class="form-input"
+              [(ngModel)]="title"
+              name="title"
+              required
+              maxlength="100"
+            >
+          </label>
+
+          <div class="form-row">
+            <label class="form-field">
+              <span class="form-label">Nom / Prenom</span>
+              <input
+                type="text"
+                class="form-input"
+                [value]="(user?.firstName ?? '') + ' ' + (user?.lastName ?? '')"
+                readonly
+              >
+            </label>
+
+            <label class="form-field">
+              <span class="form-label">Telephone</span>
+              <input
+                type="tel"
+                class="form-input"
+                [value]="user?.phoneMobile ?? ''"
+                readonly
+              >
+            </label>
+          </div>
+
+          <div class="form-row">
+            <label class="form-field">
+              <span class="form-label">Commune</span>
+              <select
+                class="form-input"
+                [(ngModel)]="location"
+                name="location"
+              >
+                <option value="">-- Selectionner --</option>
+                @for (c of communes; track c) {
+                  <option [value]="c">{{ c }}</option>
+                }
+              </select>
+            </label>
+
+            <label class="form-field">
+              <span class="form-label">Prix (XPF) <span class="required">*</span></span>
+              <input
+                type="number"
+                class="form-input"
+                [(ngModel)]="price"
+                name="price"
+                min="1"
+                step="1"
+                inputmode="numeric"
+                required
+                (keydown)="onPriceKeydown($event)"
+              >
+            </label>
+          </div>
+        </div>
+      </div>
+
+      <label class="form-field form-field--full">
+        <span class="form-label">Description <span class="required">*</span></span>
+        <textarea
+          class="form-textarea"
+          [(ngModel)]="description"
+          name="description"
+          rows="8"
+          required
+          maxlength="1000"
+        ></textarea>
+        <span class="form-counter">{{ description.length }} / 1000</span>
+      </label>
+
+      @if (error()) {
+        <p class="create-error">{{ error() }}</p>
+      }
+
+      <div class="create-actions">
+        <button
+          type="submit"
+          class="create-submit"
+          [disabled]="submitting() || !title.trim() || !description.trim() || !price"
+        >
+          {{ submitting() ? (isEdit ? 'Modification...' : 'Publication...') : (isEdit ? 'Enregistrer' : 'Publier') }}
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

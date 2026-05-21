@@ -12,6 +12,9 @@
       </div>
       <div class="bid-content">
         <h3 class="bid-title">{{ bid.title }}</h3>
+        @if (bid.location) {
+          <p class="bid-location">{{ bid.location }}</p>
+        }
         <p class="bid-price">{{ bid.price !== null ? (bid.price + ' XPF') : '-' }}</p>
       </div>
     </article>

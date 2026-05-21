@@ -1,10 +1,8 @@
 .logout-card {
   position: relative;
-  background-color: #ffffff;
-  border-radius: 0.75rem;
-  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+  background-color: var(--bg-card);
+  border-radius: var(--radius-md);
   padding: 2.5rem 3rem;
-  width: 100%;
   max-width: 480px;
   margin: 0 auto;
   box-sizing: border-box;
@@ -18,21 +16,20 @@
   background: none;
   border: none;
   font-size: 2rem;
-  line-height: 1;
   cursor: pointer;
-  color: #1a1a1a;
+  color: var(--text);
   padding: 0.2rem 0.5rem;
 }
 
 .modal-close:hover {
-  color: #1ea64a;
+  color: var(--primary);
 }
 
 .logout-title {
   margin: 0 0 1rem 0;
-  font-family: 'Luckiest Guy', cursive;
+  font-family: var(--font-display);
   font-size: 2rem;
-  color: #000000;
+  color: #000;
   letter-spacing: 0.05em;
   text-transform: lowercase;
 }
@@ -40,7 +37,7 @@
 .logout-text {
   margin: 0 0 1.5rem 0;
   font-size: 1rem;
-  color: #1a1a1a;
+  color: var(--text);
 }
 
 .logout-actions {
@@ -52,7 +49,7 @@
 .logout-btn {
   padding: 0.7rem 1.2rem;
   border: none;
-  border-radius: 0.4rem;
+  border-radius: var(--radius-sm);
   font-size: 1rem;
   font-weight: 600;
   cursor: pointer;
@@ -60,7 +57,7 @@
 
 .logout-btn.cancel {
   background-color: #d8d8d8;
-  color: #1a1a1a;
+  color: var(--text);
 }
 
 .logout-btn.cancel:hover {
@@ -68,10 +65,10 @@
 }
 
 .logout-btn.confirm {
-  background-color: #c0392b;
-  color: #ffffff;
+  background-color: var(--danger);
+  color: #fff;
 }
 
 .logout-btn.confirm:hover {
-  background-color: #962d22;
+  background-color: var(--danger-dark);
 }

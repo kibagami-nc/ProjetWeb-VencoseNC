@@ -16,12 +16,23 @@
         <p>{{ bid.description }}</p>
       </section>
 
+      @if (bid.location) {
+        <section class="bid-details-section">
+          <h2>Commune</h2>
+          <p>{{ bid.location }}</p>
+        </section>
+      }
+
       <section class="bid-details-section">
         <h2>Vendeur</h2>
         <p>{{ bid.userFirstName }} {{ bid.userLastName }}</p>
       </section>
 
-      <button type="button" class="bid-details-contact">Contacter le vendeur</button>
+      @if (isMine()) {
+        <button type="button" class="bid-details-edit" (click)="onEdit()">Modifier</button>
+      } @else {
+        <button type="button" class="bid-details-contact">Contacter le vendeur</button>
+      }
     </aside>
   </div>
 }

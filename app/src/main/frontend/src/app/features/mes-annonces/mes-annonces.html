@@ -1,0 +1,74 @@
+<section class="mes-annonces-page">
+  <header class="mes-annonces-header">
+    <div class="mes-annonces-heading">
+      <h1 class="mes-annonces-title">Mes annonces</h1>
+      @if (!loading()) {
+        <p class="mes-annonces-count">
+          {{ mine().length }} annonce{{ mine().length > 1 ? 's' : '' }} publiee{{ mine().length > 1 ? 's' : '' }}
+        </p>
+      }
+    </div>
+    <button
+      type="button"
+      class="mes-annonces-new"
+      [disabled]="mine().length >= 4"
+      [title]="mine().length >= 4 ? 'Limite de 4 annonces atteinte' : ''"
+      (click)="modal.open('new-bid')"
+    >
+      + Nouvelle annonce
+    </button>
+  </header>
+
+  @if (loading()) {
+    <p class="mes-annonces-loading">Chargement...</p>
+  } @else {
+    <div class="mes-annonces-grid">
+      @for (bid of mine(); track bid.idBid) {
+        <article
+          class="mes-annonces-card"
+          (click)="modal.openBidDetails(bid)"
+          (keydown.enter)="modal.openBidDetails(bid)"
+          tabindex="0"
+          role="button"
+        >
+          <div class="mes-annonces-actions">
+            <button
+              type="button"
+              class="mes-annonces-action mes-annonces-action--edit"
+              (click)="onEdit(bid, $event)"
+              aria-label="Modifier l'annonce"
+              title="Modifier"
+            >
+              <app-icon name="pencil" [size]="16" />
+            </button>
+            <button
+              type="button"
+              class="mes-annonces-action mes-annonces-action--delete"
+              (click)="onDelete(bid, $event)"
+              aria-label="Supprimer l'annonce"
+              title="Supprimer"
+            >
+              <app-icon name="trash" [size]="16" />
+            </button>
+          </div>
+
+          <div class="mes-annonces-image">
+            <img src="https://placehold.co/400x400?text=img" alt="Photo de l'annonce">
+          </div>
+          <div class="mes-annonces-content">
+            <h3 class="mes-annonces-card-title">{{ bid.title }}</h3>
+            @if (bid.location) {
+              <p class="mes-annonces-location">{{ bid.location }}</p>
+            }
+            <p class="mes-annonces-price">
+              {{ bid.price !== null ? (bid.price + ' XPF') : 'Prix non renseigne' }}
+            </p>
+            <p class="mes-annonces-date">Publiee le {{ bid.creationDate | date:'dd/MM/yyyy' }}</p>
+          </div>
+        </article>
+      } @empty {
+        <p class="mes-annonces-empty">Tu n'as encore publie aucune annonce.</p>
+      }
+    </div>
+  }
+</section>

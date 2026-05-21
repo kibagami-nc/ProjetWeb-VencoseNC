@@ -13,6 +13,7 @@ public class BidDto {
     private String title;
     private String description;
     private Integer price;
+    private String location;
     private LocalDateTime creationDate;
     private Long userId;
     private String userFirstName;

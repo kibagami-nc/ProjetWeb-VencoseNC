@@ -1,4 +1,4 @@
-import { Component, OnInit, inject, signal } from '@angular/core';
+import { Component, ElementRef, Injector, OnInit, afterNextRender, inject, signal, viewChild } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { FormsModule } from '@angular/forms';
 import { interval } from 'rxjs';
@@ -17,10 +17,14 @@ import { AuthService } from '../../shared/services/auth.service';
 export class Messages implements OnInit {
   private readonly messageService = inject(MessageService);
   private readonly userId = inject(AuthService).currentUser?.idUser ?? 0;
+  private readonly injector = inject(Injector);
 
   protected readonly threads = signal<Thread[]>([]);
   protected readonly messages = signal<Message[]>([]);
   protected readonly selectedId = signal<number | null>(null);
+
+  // Reference au conteneur scrollable des messages, utilisee pour le scroll automatique en bas
+  private readonly chatThread = viewChild<ElementRef<HTMLDivElement>>('chatThread');
 
   protected draft = '';
 
@@ -42,9 +46,13 @@ export class Messages implements OnInit {
 
   // Selectionne un thread : memorise son id et charge ses messages depuis l'API.
   // Appelee quand l'utilisateur clique sur une conversation dans la liste de gauche.
+  // Apres chargement, on scrolle automatiquement en bas pour afficher le message le plus recent.
   protected select(id: number): void {
     this.selectedId.set(id);
-    this.messageService.findMessagesByThread(id).subscribe(m => this.messages.set(m));
+    this.messageService.findMessagesByThread(id).subscribe(m => {
+      this.messages.set(m);
+      this.scrollToBottom();
+    });
   }
 
   // Renvoie l'objet Thread actuellement selectionne (ou null si aucun).
@@ -107,7 +115,19 @@ export class Messages implements OnInit {
         ? { ...t, lastMessage: created.content, lastMessageAt: created.sentAt }
         : t));
       this.draft = '';
+      this.scrollToBottom();
     });
+  }
+
+  // Place le scroll du fil de discussion tout en bas. Appele apres chargement d'une
+  // conversation et apres l'envoi d'un message.
+  // afterNextRender s'execute apres le rendu Angular mais AVANT le prochain paint :
+  // l'utilisateur ne voit jamais les messages s'afficher en haut avant de descendre.
+  private scrollToBottom(): void {
+    afterNextRender(() => {
+      const el = this.chatThread()?.nativeElement;
+      if (el) el.scrollTop = el.scrollHeight;
+    }, { injector: this.injector });
   }
 
   // Rafraichit silencieusement les donnees (appelee par le polling).
