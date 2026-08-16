@@ -1,0 +1,21 @@
+@if (modal.selectedBid(); as bid) {
+  <div class="delete-card">
+    <button type="button" class="modal-close" (click)="modal.close()" aria-label="Fermer">&times;</button>
+
+    <h1 class="delete-title">supprimer l'annonce</h1>
+
+    <p class="delete-text">
+      Supprimer definitivement <strong>&laquo; {{ bid.title }} &raquo;</strong> ?<br>
+      Ses photos seront egalement supprimees.
+    </p>
+
+    <div class="delete-actions">
+      <button type="button" class="delete-btn cancel" (click)="modal.close()" [disabled]="deleting()">
+        Annuler
+      </button>
+      <button type="button" class="delete-btn confirm" (click)="confirm()" [disabled]="deleting()">
+        {{ deleting() ? 'Suppression...' : 'Supprimer' }}
+      </button>
+    </div>
+  </div>
+}

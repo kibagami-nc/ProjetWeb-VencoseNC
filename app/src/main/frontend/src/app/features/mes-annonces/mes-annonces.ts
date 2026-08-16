@@ -2,11 +2,10 @@ import { Component, OnInit, computed, inject, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { DatePipe } from '@angular/common';
 
-import { Bid } from '../../shared/models/bid.model';
+import { Bid, bidPhotoSrc, onImgError } from '../../shared/models/bid.model';
 import { BidService } from '../../shared/services/bid.service';
 import { AuthService } from '../../shared/services/auth.service';
 import { ModalService } from '../../shared/services/modal.service';
-import { ToastService } from '../../shared/services/toast.service';
 import { Icon } from '../../shared/icon/icon';
 
 @Component({
@@ -18,13 +17,20 @@ import { Icon } from '../../shared/icon/icon';
 export class MesAnnonces implements OnInit {
 
   private readonly bidService = inject(BidService);
-  private readonly toast = inject(ToastService);
   protected readonly modal = inject(ModalService);
   // Id de l'utilisateur connecte. La route est protegee par authGuard, donc il existe toujours.
   private readonly userId = inject(AuthService).currentUser()!.idUser;
 
+  // Nombre maximum d'annonces par utilisateur (doit rester coherent avec
+  // MAX_BIDS_PER_USER dans BidController cote backend)
+  protected readonly MAX_BIDS = 4;
+
   protected readonly bids = signal<Bid[]>([]);
   protected readonly loading = signal(true);
+
+  // Helpers d'affichage des photos (premiere photo ou placeholder local)
+  protected readonly bidPhotoSrc = bidPhotoSrc;
+  protected readonly onImgError = onImgError;
 
   // Annonces de l'utilisateur connecte, triees de la plus recente a la plus ancienne.
   // Filtrage cote front car aucun endpoint /api/bid/user/{id} n'existe encore cote back.
@@ -44,6 +50,11 @@ export class MesAnnonces implements OnInit {
     this.bidService.bidUpdated.pipe(takeUntilDestroyed()).subscribe(updated => {
       this.bids.update(list => list.map(b => b.idBid === updated.idBid ? updated : b));
     });
+
+    // Quand une annonce est supprimee (via la modale de confirmation), on retire la carte
+    this.bidService.bidDeleted.pipe(takeUntilDestroyed()).subscribe(id => {
+      this.bids.update(list => list.filter(b => b.idBid !== id));
+    });
   }
 
   ngOnInit(): void {
@@ -59,22 +70,11 @@ export class MesAnnonces implements OnInit {
     });
   }
 
-  // Supprime une annonce apres confirmation. Le stopPropagation empeche l'ouverture
-  // du modal de detail au clic sur l'icone.
+  // Ouvre la modale de confirmation de suppression. Le stopPropagation empeche
+  // l'ouverture du modal de detail au clic sur l'icone.
   protected onDelete(bid: Bid, event: Event): void {
     event.stopPropagation();
-    if (!confirm(`Supprimer l'annonce "${bid.title}" ?`)) return;
-
-    this.bidService.delete(bid.idBid).subscribe({
-      next: () => {
-        this.bids.update(list => list.filter(b => b.idBid !== bid.idBid));
-        this.toast.success('Annonce supprimee.');
-      },
-      error: err => {
-        console.error('Erreur suppression annonce', err);
-        this.toast.error('Echec de la suppression.');
-      },
-    });
+    this.modal.openDeleteBid(bid);
   }
 
   // Ouvre le modal d'edition prerempli avec le bid cible.

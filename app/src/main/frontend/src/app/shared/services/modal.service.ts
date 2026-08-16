@@ -4,7 +4,7 @@ import { filter } from 'rxjs/operators';
 
 import { Bid } from '../models/bid.model';
 
-export type ModalName = 'login' | 'register' | 'logout' | 'bid' | 'new-bid' | 'edit-bid' | null;
+export type ModalName = 'login' | 'register' | 'logout' | 'bid' | 'new-bid' | 'edit-bid' | 'delete-bid' | null;
 
 @Injectable({ providedIn: 'root' })
 export class ModalService {
@@ -43,6 +43,13 @@ export class ModalService {
   openEditBid(bid: Bid) {
     this.selectedBid.set(bid);
     this.current.set('edit-bid');
+    document.body.style.overflow = 'hidden';
+  }
+
+  // Ouvre le modal de confirmation de suppression pour le bid passe
+  openDeleteBid(bid: Bid) {
+    this.selectedBid.set(bid);
+    this.current.set('delete-bid');
     document.body.style.overflow = 'hidden';
   }
 

@@ -1,0 +1,80 @@
+.delete-card {
+  position: relative;
+  background-color: var(--bg-card);
+  border-radius: var(--radius-md);
+  padding: 2.5rem 3rem;
+  max-width: 480px;
+  margin: 0 auto;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.modal-close {
+  position: absolute;
+  top: 0.6rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  font-size: 2rem;
+  cursor: pointer;
+  color: var(--text);
+  padding: 0.2rem 0.5rem;
+}
+
+.modal-close:hover {
+  color: var(--primary);
+}
+
+.delete-title {
+  margin: 0 0 1rem 0;
+  font-family: var(--font-display);
+  font-size: 2rem;
+  color: var(--text-title);
+  letter-spacing: 0.05em;
+  text-transform: lowercase;
+}
+
+.delete-text {
+  margin: 0 0 1.5rem 0;
+  font-size: 1rem;
+  color: var(--text);
+  line-height: 1.5;
+}
+
+.delete-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.delete-btn {
+  padding: 0.7rem 1.2rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.delete-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.delete-btn.cancel {
+  background-color: var(--bg-neutral);
+  color: var(--text);
+}
+
+.delete-btn.cancel:hover:not(:disabled) {
+  background-color: var(--bg-neutral-dark);
+}
+
+.delete-btn.confirm {
+  background-color: var(--danger);
+  color: var(--text-on-dark);
+}
+
+.delete-btn.confirm:hover:not(:disabled) {
+  background-color: var(--danger-dark);
+}

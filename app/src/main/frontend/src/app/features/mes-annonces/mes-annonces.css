@@ -40,6 +40,23 @@
   color: var(--text-muted);
 }
 
+.mes-annonces-new-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+/* Compteur "n/n" a cote du bouton ; passe en rouge quand la limite est atteinte */
+.mes-annonces-limit {
+  font-size: 0.95rem;
+  font-weight: 600;
+  color: var(--text-muted);
+}
+
+.mes-annonces-limit.is-full {
+  color: var(--danger);
+}
+
 .mes-annonces-new {
   background-color: var(--primary);
   color: var(--text-on-dark);

@@ -8,15 +8,26 @@
         </p>
       }
     </div>
-    <button
-      type="button"
-      class="mes-annonces-new"
-      [disabled]="mine().length >= 4"
-      [title]="mine().length >= 4 ? 'Limite de 4 annonces atteinte' : ''"
-      (click)="modal.open('new-bid')"
-    >
-      + Nouvelle annonce
-    </button>
+    <div class="mes-annonces-new-wrapper">
+      <button
+        type="button"
+        class="mes-annonces-new"
+        [disabled]="mine().length >= MAX_BIDS"
+        [title]="mine().length >= MAX_BIDS ? 'Limite de ' + MAX_BIDS + ' annonces atteinte' : ''"
+        (click)="modal.open('new-bid')"
+      >
+        + Nouvelle annonce
+      </button>
+
+      <!-- Compteur d'annonces par rapport a la limite autorisee -->
+      <span
+        class="mes-annonces-limit"
+        [class.is-full]="mine().length >= MAX_BIDS"
+        [title]="'Limite de ' + MAX_BIDS + ' annonces par utilisateur'"
+      >
+        {{ mine().length }}/{{ MAX_BIDS }}
+      </span>
+    </div>
   </header>
 
   @if (loading()) {
@@ -53,7 +64,7 @@
           </div>
 
           <div class="mes-annonces-image">
-            <img src="https://placehold.co/400x400?text=img" alt="Photo de l'annonce">
+            <img [src]="bidPhotoSrc(bid)" (error)="onImgError($event)" alt="Photo de l'annonce" loading="lazy">
           </div>
           <div class="mes-annonces-content">
             <h3 class="mes-annonces-card-title">{{ bid.title }}</h3>
