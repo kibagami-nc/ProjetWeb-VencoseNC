@@ -16,7 +16,7 @@
   gap: 0.75rem;
   padding: 0.65rem 1rem;
   border-radius: var(--radius-sm);
-  color: #fff;
+  color: var(--text-on-dark);
   font-size: 0.9rem;
   font-weight: 500;
   min-width: 240px;
@@ -26,7 +26,7 @@
 
 .toast--success { background-color: var(--primary); }
 .toast--error { background-color: var(--danger); }
-.toast--info { background-color: #333; }
+.toast--info { background-color: var(--bg-toast); }
 
 .toast-message {
   flex: 1;

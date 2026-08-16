@@ -42,7 +42,7 @@
 
 .mes-annonces-new {
   background-color: var(--primary);
-  color: #fff;
+  color: var(--text-on-dark);
   border: none;
   border-radius: var(--radius-pill);
   padding: 0.7rem 1.6rem;
@@ -56,7 +56,7 @@
 }
 
 .mes-annonces-new:disabled {
-  background-color: #9ec9a8;
+  background-color: var(--primary-disabled);
   cursor: not-allowed;
 }
 
@@ -108,7 +108,7 @@
   border: none;
   border-radius: var(--radius-sm);
   cursor: pointer;
-  color: #fff;
+  color: var(--text-on-dark);
   padding: 0;
 }
 
@@ -134,7 +134,7 @@
 
 .mes-annonces-image {
   flex: 1;
-  background-color: #e8e8e8;
+  background-color: var(--bg-placeholder);
   overflow: hidden;
   min-height: 0;
 }

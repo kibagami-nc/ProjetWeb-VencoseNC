@@ -30,7 +30,7 @@
               <input
                 type="text"
                 class="form-input"
-                [value]="(user?.firstName ?? '') + ' ' + (user?.lastName ?? '')"
+                [value]="(user()?.firstName ?? '') + ' ' + (user()?.lastName ?? '')"
                 readonly
               >
             </label>
@@ -40,7 +40,7 @@
               <input
                 type="tel"
                 class="form-input"
-                [value]="user?.phoneMobile ?? ''"
+                [value]="user()?.phoneMobile ?? ''"
                 readonly
               >
             </label>

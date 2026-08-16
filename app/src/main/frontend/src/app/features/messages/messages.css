@@ -48,14 +48,14 @@
   align-items: center;
   gap: 0.75rem;
   padding: 0.85rem 1rem;
-  border-bottom: 1px solid #ececec;
+  border-bottom: 1px solid var(--border-soft);
   cursor: pointer;
   outline: none;
 }
 
 .conversation-item:hover,
 .conversation-item:focus-visible {
-  background-color: #f0f0f0;
+  background-color: var(--bg-light);
 }
 
 .conversation-item.is-active {
@@ -67,7 +67,7 @@
   height: 44px;
   border-radius: 50%;
   background-color: var(--accent);
-  color: #fff;
+  color: var(--text-on-dark);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -111,7 +111,7 @@
 .conversation-preview {
   margin: 0.15rem 0 0 0;
   font-size: 0.85rem;
-  color: #4a4a4a;
+  color: var(--text-soft);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -162,7 +162,7 @@
 
 .chat-bubble {
   padding: 0.6rem 0.95rem;
-  background-color: #ececec;
+  background-color: var(--bg-muted);
   color: var(--text);
   border-radius: 1rem 1rem 1rem 0.25rem;
   font-size: 0.95rem;
@@ -173,14 +173,14 @@
 
 .chat-message--mine .chat-bubble {
   background-color: var(--accent);
-  color: #fff;
+  color: var(--text-on-dark);
   border-radius: 1rem 1rem 0.25rem 1rem;
 }
 
 .chat-time {
   margin-top: 0.2rem;
   font-size: 0.7rem;
-  color: #8a8a8a;
+  color: var(--text-placeholder);
 }
 
 .chat-input {
@@ -194,7 +194,7 @@
 .chat-input-field {
   flex: 1;
   padding: 0.65rem 0.9rem;
-  border: 1px solid var(--bg-surface);
+  border: 1px solid var(--border);
   border-radius: 1.5rem;
   font-size: 0.95rem;
   outline: none;
@@ -209,7 +209,7 @@
 .chat-send {
   padding: 0.6rem 1.4rem;
   background-color: var(--accent);
-  color: #fff;
+  color: var(--text-on-dark);
   border: none;
   border-radius: 1.5rem;
   font-size: 0.95rem;
@@ -222,7 +222,7 @@
 }
 
 .chat-send:disabled {
-  background-color: #b5b5b5;
+  background-color: var(--bg-disabled);
   cursor: not-allowed;
 }
 

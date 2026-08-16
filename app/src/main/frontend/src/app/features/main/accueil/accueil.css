@@ -9,7 +9,7 @@
   margin: 0;
   font-family: var(--font-display);
   font-size: 4.5rem;
-  color: #000;
+  color: var(--text-title);
   letter-spacing: 0.05em;
   line-height: 1.1;
   text-transform: uppercase;

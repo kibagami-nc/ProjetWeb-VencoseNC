@@ -1,0 +1,56 @@
+/* ================================================================
+ * THEME - TOUTES les couleurs de l'application sont definies ici.
+ *
+ * Aucun composant ne code une couleur en dur : ils utilisent tous
+ * var(--nom-de-la-variable). Pour changer une couleur partout dans
+ * l'app, il suffit donc de modifier sa valeur dans CE fichier.
+ * ================================================================ */
+:root {
+
+  /* ---- Marque (verts) ---------------------------------------- */
+  --primary: #1ba848;          /* boutons principaux (CTA), focus */
+  --primary-dark: #178a3c;     /* hover des boutons principaux */
+  --primary-disabled: #9ec9a8; /* boutons principaux desactives */
+  --brand: #00861d;            /* fond de la navbar */
+  --accent: #0e5023;           /* vert fonce : bulles chat, prix, focus des cartes */
+  --accent-dark: #094019;      /* hover des boutons vert fonce */
+
+  /* ---- Etats -------------------------------------------------- */
+  --danger: #c0392b;           /* suppression, deconnexion, erreurs */
+  --danger-dark: #962d22;      /* hover des boutons danger */
+  --warning: #f39c12;          /* bouton "modifier" */
+  --warning-dark: #d68910;     /* hover du bouton "modifier" */
+  --info: #2196f3;             /* bordure de l'avatar du profil */
+
+  /* ---- Texte -------------------------------------------------- */
+  --text: #1a1a1a;             /* texte principal */
+  --text-soft: #4a4a4a;        /* texte secondaire (previews, labels attenues) */
+  --text-muted: #6b6b6b;       /* texte discret (dates, sous-titres) */
+  --text-placeholder: #999999; /* placeholders, indications, icones de recherche */
+  --text-disabled: #b0b0b0;    /* texte / icones inactifs */
+  --text-title: #000000;       /* grands titres (hero, modales) */
+  --text-on-dark: #ffffff;     /* texte pose sur un fond colore ou fonce */
+
+  /* ---- Fonds -------------------------------------------------- */
+  --bg-page: #f6f6f6;          /* fond general des pages */
+  --bg-card: #ffffff;          /* cartes, modales, champs de saisie */
+  --bg-soft: #fafafa;          /* zones legerement grisees (sidebar messages) */
+  --bg-light: #f0f0f0;         /* survol des listes, fond des avatars */
+  --bg-muted: #ececec;         /* bulles de chat recues */
+  --bg-placeholder: #e8e8e8;   /* zone "image manquante" des cartes annonces */
+  --bg-surface: #d0d0d0;       /* cartes annonces, barre de recherche du hero */
+  --bg-neutral: #d8d8d8;       /* boutons secondaires (annuler), pastille categorie */
+  --bg-neutral-dark: #b5b5b5;  /* hover des boutons secondaires, fond du footer */
+  --bg-disabled: #b5b5b5;      /* boutons desactives (hors CTA verts) */
+  --bg-readonly: #f3f3f3;      /* champs en lecture seule */
+  --bg-toast: #333333;         /* fond du toast "info" */
+
+  /* ---- Bordures ----------------------------------------------- */
+  --border: #cfcfcf;           /* bordure par defaut des champs */
+  --border-soft: #e5e5e5;      /* separateurs discrets (listes, en-tetes) */
+  --border-strong: #b5b5b5;    /* bordure des champs login / inscription */
+
+  /* ---- Transparences ------------------------------------------ */
+  --overlay: rgba(0, 0, 0, 0.5);            /* voile sombre derriere les modales */
+  --overlay-light: rgba(255, 255, 255, 0.85); /* bouton fermer pose sur une image */
+}

@@ -20,7 +20,8 @@ export class MesAnnonces implements OnInit {
   private readonly bidService = inject(BidService);
   private readonly toast = inject(ToastService);
   protected readonly modal = inject(ModalService);
-  private readonly userId = inject(AuthService).currentUser?.idUser ?? 0;
+  // Id de l'utilisateur connecte. La route est protegee par authGuard, donc il existe toujours.
+  private readonly userId = inject(AuthService).currentUser()!.idUser;
 
   protected readonly bids = signal<Bid[]>([]);
   protected readonly loading = signal(true);

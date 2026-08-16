@@ -3,13 +3,14 @@ import { Injectable, inject } from '@angular/core';
 import { Observable, Subject, tap } from 'rxjs';
 
 import { Bid } from '../models/bid.model';
+import { API_URL } from '../api';
 
 // Service qui parle au backend Spring (endpoint /api/bid)
 @Injectable({ providedIn: 'root' })
 export class BidService {
 
   private http = inject(HttpClient);
-  private apiUrl = 'http://localhost:8080/api/bid';
+  private apiUrl = `${API_URL}/bid`;
 
   // Stream des nouvelles annonces creees, ecoute par les pages qui affichent la liste
   // pour s'inserer en tete sans avoir a refetch

@@ -56,7 +56,7 @@
 }
 
 .create-image {
-  background-color: #d8d8d8;
+  background-color: var(--bg-neutral);
   border-radius: 0.5rem;
   min-height: 260px;
   display: flex;
@@ -118,7 +118,7 @@
 .form-input[readonly],
 .form-input:disabled {
   background-color: var(--bg-readonly);
-  color: #555;
+  color: var(--text-soft);
   cursor: not-allowed;
 }
 
@@ -154,7 +154,7 @@
 
 .create-submit {
   background-color: var(--primary);
-  color: #fff;
+  color: var(--text-on-dark);
   border: none;
   border-radius: var(--radius-pill);
   padding: 0.85rem 3rem;
@@ -169,7 +169,7 @@
 }
 
 .create-submit:disabled {
-  background-color: #9ec9a8;
+  background-color: var(--primary-disabled);
   cursor: not-allowed;
 }
 

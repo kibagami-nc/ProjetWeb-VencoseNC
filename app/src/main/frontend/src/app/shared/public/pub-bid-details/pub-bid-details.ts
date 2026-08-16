@@ -20,7 +20,7 @@ export class PubBidDetails {
   // au lieu d'avoir un bouton "Contacter le vendeur" qui n'aurait pas de sens).
   protected readonly isMine = computed(() => {
     const bid = this.modal.selectedBid();
-    const me = this.auth.currentUser;
+    const me = this.auth.currentUser();
     return !!bid && !!me && bid.userId === me.idUser;
   });
 

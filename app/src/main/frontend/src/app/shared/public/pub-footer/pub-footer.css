@@ -3,7 +3,7 @@
   justify-content: space-between;
   align-items: flex-start;
   padding: 2.5rem 4rem;
-  background-color: #b5b5b5;
+  background-color: var(--bg-neutral-dark);
   min-height: 220px;
 }
 

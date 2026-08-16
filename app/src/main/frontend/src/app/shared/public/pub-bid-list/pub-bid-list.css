@@ -30,7 +30,7 @@
 
 .bid-image {
   flex: 1;
-  background-color: #e8e8e8;
+  background-color: var(--bg-placeholder);
   overflow: hidden;
   min-height: 0;
 }

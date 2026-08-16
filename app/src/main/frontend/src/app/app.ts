@@ -3,7 +3,10 @@ import { toSignal } from '@angular/core/rxjs-interop';
 import { NavigationEnd, Router, RouterOutlet } from '@angular/router';
 import { filter, map, startWith } from 'rxjs';
 
-import { PubNavbar, PubFooter, PubBidDetails, PubBidCreate } from './shared/public';
+import { PubNavbar } from './shared/public/pub-navbar/pub-navbar';
+import { PubFooter } from './shared/public/pub-footer/pub-footer';
+import { PubBidDetails } from './shared/public/pub-bid-details/pub-bid-details';
+import { PubBidCreate } from './shared/public/pub-bid-create/pub-bid-create';
 import { Login } from './features/auth/login/login';
 import { Register } from './features/auth/register/register';
 import { Logout } from './features/auth/logout/logout';

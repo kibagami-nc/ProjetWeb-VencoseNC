@@ -16,7 +16,8 @@ import { AuthService } from '../../shared/services/auth.service';
 })
 export class Messages implements OnInit {
   private readonly messageService = inject(MessageService);
-  private readonly userId = inject(AuthService).currentUser?.idUser ?? 0;
+  // Id de l'utilisateur connecte. La route est protegee par authGuard, donc il existe toujours.
+  private readonly userId = inject(AuthService).currentUser()!.idUser;
   private readonly injector = inject(Injector);
 
   protected readonly threads = signal<Thread[]>([]);

@@ -1,40 +1,11 @@
 @import "tailwindcss";
+@import "./theme.css";
 
 /* ----------------------------------------------------------------
- * Theme global - couleurs, fontes, rayons partages par toute l'app
- * Les composants pointent vers ces variables au lieu de coder en dur.
+ * Tokens globaux hors couleurs (les couleurs sont dans theme.css) :
+ * rayons de bordure et fonte d'affichage partages par toute l'app.
  * ---------------------------------------------------------------- */
 :root {
-  /* Verts */
-  --primary: #1ba848;        /* bouton CTA, focus, accent */
-  --primary-dark: #178a3c;   /* hover du bouton primaire */
-  --brand: #00861d;          /* fond navbar */
-  --accent: #0e5023;         /* vert fonce (bulles chat, prix, focus card) */
-  --accent-dark: #094019;    /* hover chat-send */
-
-  /* Rouges (danger / logout) */
-  --danger: #c0392b;
-  --danger-dark: #962d22;
-
-  /* Orange (action "modifier" sur ses propres ressources) */
-  --warning: #f39c12;
-  --warning-dark: #d68910;
-
-  /* Texte */
-  --text: #1a1a1a;
-  --text-muted: #6b6b6b;
-
-  /* Fonds */
-  --bg-page: #f6f6f6;
-  --bg-card: #ffffff;
-  --bg-soft: #fafafa;
-  --bg-surface: #d0d0d0;
-  --bg-readonly: #f3f3f3;
-
-  /* Bordures */
-  --border: #cfcfcf;
-  --border-soft: #e5e5e5;
-
   /* Rayons */
   --radius-sm: 0.4rem;
   --radius-md: 0.75rem;

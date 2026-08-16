@@ -23,7 +23,7 @@
 .brand {
   font-size: 2.125rem;
   font-weight: 600;
-  color: #fff;
+  color: var(--text-on-dark);
   text-decoration: none;
 }
 
@@ -46,7 +46,7 @@
   display: flex;
   align-items: center;
   gap: 0.4rem;
-  color: #fff;
+  color: var(--text-on-dark);
   cursor: pointer;
   background: none;
   border: none;
@@ -78,12 +78,12 @@
   height: 2.5rem;
   border-radius: 6px;
   overflow: hidden;
-  background-color: #fff;
+  background-color: var(--bg-card);
 }
 
 .search-category-btn {
-  background-color: #d8d8d8;
-  color: #444;
+  background-color: var(--bg-neutral);
+  color: var(--text-soft);
   border: none;
   padding: 0 1rem;
   font-size: 1rem;
@@ -96,16 +96,16 @@
 .search-input {
   flex: 1;
   border: none;
-  background-color: #fff;
+  background-color: var(--bg-card);
   padding: 0 2.5rem 0 1rem;
   font-size: 1rem;
   outline: none;
   font-family: inherit;
-  color: #333;
+  color: var(--text);
 }
 
 .search-input::placeholder {
-  color: #b0b0b0;
+  color: var(--text-disabled);
 }
 
 .search-icon {
@@ -113,6 +113,6 @@
   right: 0.75rem;
   top: 50%;
   transform: translateY(-50%);
-  color: #999;
+  color: var(--text-placeholder);
   pointer-events: none;
 }

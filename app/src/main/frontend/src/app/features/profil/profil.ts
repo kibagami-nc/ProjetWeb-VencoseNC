@@ -1,6 +1,6 @@
 import { Component, inject } from '@angular/core';
 
-import { AuthService } from '../../../shared/services/auth.service';
+import { AuthService } from '../../shared/services/auth.service';
 
 @Component({
   selector: 'app-profil',
@@ -12,7 +12,8 @@ export class Profil {
 
   private readonly auth = inject(AuthService);
 
-  protected readonly user = this.auth.currentUser!;
+  // Utilisateur connecte. La route est protegee par authGuard, donc il existe toujours.
+  protected readonly user = this.auth.currentUser()!;
 
   protected get initials(): string {
     const f = this.user.firstName?.charAt(0) ?? '';

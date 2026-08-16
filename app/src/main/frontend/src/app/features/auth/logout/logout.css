@@ -29,7 +29,7 @@
   margin: 0 0 1rem 0;
   font-family: var(--font-display);
   font-size: 2rem;
-  color: #000;
+  color: var(--text-title);
   letter-spacing: 0.05em;
   text-transform: lowercase;
 }
@@ -56,17 +56,17 @@
 }
 
 .logout-btn.cancel {
-  background-color: #d8d8d8;
+  background-color: var(--bg-neutral);
   color: var(--text);
 }
 
 .logout-btn.cancel:hover {
-  background-color: #b5b5b5;
+  background-color: var(--bg-neutral-dark);
 }
 
 .logout-btn.confirm {
   background-color: var(--danger);
-  color: #fff;
+  color: var(--text-on-dark);
 }
 
 .logout-btn.confirm:hover {

@@ -20,6 +20,7 @@ export class PubBidCreate {
   private readonly toast = inject(ToastService);
   protected readonly modal = inject(ModalService);
 
+  // Signal de l'utilisateur connecte (lu dans le template pour preremplir nom / telephone)
   protected readonly user = this.auth.currentUser;
   protected readonly submitting = signal(false);
   protected readonly error = signal<string | null>(null);
@@ -93,7 +94,8 @@ export class PubBidCreate {
 
 
   protected onSubmit(): void {
-    if (!this.user) {
+    const user = this.user();
+    if (!user) {
       this.error.set('Vous devez etre connecte pour publier une annonce.');
       return;
     }
@@ -107,7 +109,7 @@ export class PubBidCreate {
       description: this.description.trim(),
       price: this.price,
       location: this.location.trim() || null,
-      userId: this.user.idUser,
+      userId: user.idUser,
     };
 
     const request = (this.isEdit && this.editingId !== null)

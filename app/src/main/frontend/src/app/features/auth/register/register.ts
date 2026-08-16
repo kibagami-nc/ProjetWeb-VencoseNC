@@ -1,9 +1,8 @@
 import { Component, inject, signal } from '@angular/core';
 import { FormsModule } from '@angular/forms';
-import { HttpClient } from '@angular/common/http';
 
 import { ModalService } from '../../../shared/services/modal.service';
-import { AuthService, AuthUser } from '../../../shared/services/auth.service';
+import { AuthService } from '../../../shared/services/auth.service';
 import { Icon } from '../../../shared/icon/icon';
 
 @Component({
@@ -15,7 +14,6 @@ import { Icon } from '../../../shared/icon/icon';
 export class Register {
 
   protected readonly modal = inject(ModalService);
-  private readonly http = inject(HttpClient);
   private readonly auth = inject(AuthService);
 
   lastName = '';
@@ -32,8 +30,9 @@ export class Register {
     this.showPassword.set(!this.showPassword());
   }
 
+  // Valide les champs puis cree le compte via AuthService.
+  // En cas de succes l'utilisateur est directement connecte et la modale se ferme.
   onSubmit() {
-
     this.errorMessage.set('');
 
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(this.email)) {
@@ -51,23 +50,16 @@ export class Register {
       return;
     }
 
-    // POST vers le backend (corps JSON, rien dans l'URL)
-    this.http.post<AuthUser>('http://localhost:8080/api/user', {
+    this.auth.register({
       lastName: this.lastName,
       firstName: this.firstName,
       email: this.email,
       phoneMobile: this.phoneMobile,
       phoneLandline: this.phoneLandline,
       password: this.password,
-
     }).subscribe({
-      next: (user) => {
-        this.auth.setUser(user);
-        this.modal.close();
-      },
-      error: () => {
-        this.errorMessage.set('Erreur lors de l\'inscription');
-      },
+      next: () => this.modal.close(),
+      error: () => this.errorMessage.set('Erreur lors de l\'inscription'),
     });
   }
 }

@@ -4,12 +4,14 @@ import { Observable } from 'rxjs';
 
 import { Thread } from '../models/thread.model';
 import { Message } from '../models/message.model';
+import { API_URL } from '../api';
 
+// Service qui parle au backend Spring (endpoints /api/thread et /api/message)
 @Injectable({ providedIn: 'root' })
 export class MessageService {
 
   private http = inject(HttpClient);
-  private baseUrl = 'http://localhost:8080/api';
+  private baseUrl = API_URL;
 
   // Threads de l'utilisateur (avec infos peer + dernier message)
   findThreadsByUser(userId: number): Observable<Thread[]> {

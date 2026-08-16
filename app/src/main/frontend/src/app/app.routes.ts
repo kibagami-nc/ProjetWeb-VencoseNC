@@ -1,7 +1,7 @@
 import { Routes } from '@angular/router';
 
-import { Main } from './features/main/main/main';
-import { Profil } from './features/profil/profil/profil';
+import { Main } from './features/main/main';
+import { Profil } from './features/profil/profil';
 import { Messages } from './features/messages/messages';
 import { MesAnnonces } from './features/mes-annonces/mes-annonces';
 import { AdminAccounts } from './features/admin/admin-accounts/admin-accounts';
