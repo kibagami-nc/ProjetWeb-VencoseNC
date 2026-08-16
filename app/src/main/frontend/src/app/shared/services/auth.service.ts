@@ -56,6 +56,15 @@ export class AuthService {
       .pipe(tap(user => this.setUser(user)));
   }
 
+  // PUT /api/user/{id} : met a jour le profil de l'utilisateur connecte,
+  // puis memorise la version renvoyee par le backend (signal + localStorage)
+  updateProfile(changes: Partial<AuthUser>): Observable<AuthUser> {
+    const current = this._currentUser()!;
+    return this.http
+      .put<AuthUser>(`${API_URL}/user/${current.idUser}`, { ...current, ...changes })
+      .pipe(tap(user => this.setUser(user)));
+  }
+
   logout(): void {
     this._currentUser.set(null);
     if (this.hasStorage()) {

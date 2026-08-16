@@ -88,6 +88,85 @@
   cursor: default;
 }
 
+/* En mode edition, les champs saisissables sont soulignes en vert */
+.profil-field input:enabled {
+  border-color: var(--primary);
+  outline: none;
+}
+
+.profil-field input:enabled:focus {
+  border-width: 2px;
+}
+
+/* Petit lien "Modifier" au-dessus de la carte, aligne a droite */
+.profil-toolbar {
+  width: 100%;
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+.profil-edit-link {
+  background: none;
+  border: none;
+  padding: 0;
+  font-size: 0.9rem;
+  color: var(--text-muted);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+.profil-edit-link:hover {
+  color: var(--primary);
+}
+
+.profil-error {
+  margin: 1rem 0 0 0;
+  color: var(--danger);
+  font-size: 0.9rem;
+  text-align: center;
+}
+
+/* Boutons Annuler / Enregistrer du mode edition */
+.profil-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+
+.profil-btn {
+  padding: 0.6rem 1.4rem;
+  border: none;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.profil-btn:disabled {
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.profil-btn--cancel {
+  background-color: var(--bg-neutral);
+  color: var(--text);
+}
+
+.profil-btn--cancel:hover:not(:disabled) {
+  background-color: var(--bg-neutral-dark);
+}
+
+.profil-btn--save {
+  background-color: var(--primary);
+  color: var(--text-on-dark);
+}
+
+.profil-btn--save:hover:not(:disabled) {
+  background-color: var(--primary-dark);
+}
+
 @media (max-width: 600px) {
   .profil-grid {
     grid-template-columns: 1fr;

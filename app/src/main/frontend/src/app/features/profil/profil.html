@@ -1,41 +1,67 @@
-<section class="profil-page">
-  <div class="profil-avatar">
-    <span class="profil-initials">{{ initials }}</span>
-  </div>
-
-  <h1 class="profil-welcome">
-    Bienvenue,<br>
-    <strong>{{ user.firstName }} {{ user.lastName }}</strong>
-  </h1>
-
-  <div class="profil-card">
-    <div class="profil-grid">
-      <div class="profil-field">
-        <label for="lastName">Nom</label>
-        <input id="lastName" type="text" [value]="user.lastName" disabled>
-      </div>
-
-      <div class="profil-field">
-        <label for="email">Email</label>
-        <input id="email" type="email" [value]="user.email" disabled>
-      </div>
-
-      <div class="profil-field">
-        <label for="firstName">Prenom</label>
-        <input id="firstName" type="text" [value]="user.firstName" disabled>
-      </div>
-
-      <div class="profil-field">
-        <label for="phoneMobile">Telephone 1</label>
-        <input id="phoneMobile" type="tel" [value]="user.phoneMobile" disabled>
-      </div>
-
-      <div class="profil-field profil-field--placeholder"></div>
-
-      <div class="profil-field">
-        <label for="phoneLandline">Telephone 2</label>
-        <input id="phoneLandline" type="tel" [value]="user.phoneLandline" disabled>
-      </div>
+@if (user(); as u) {
+  <section class="profil-page">
+    <div class="profil-avatar">
+      <span class="profil-initials">{{ initials }}</span>
     </div>
-  </div>
-</section>
+
+    <h1 class="profil-welcome">
+      Bienvenue,<br>
+      <strong>{{ u.firstName }} {{ u.lastName }}</strong>
+    </h1>
+
+    <!-- Petit lien au-dessus de la carte, qui bascule le formulaire en mode edition -->
+    <div class="profil-toolbar">
+      @if (!editing()) {
+        <button type="button" class="profil-edit-link" (click)="startEdit()">Modifier</button>
+      }
+    </div>
+
+    <div class="profil-card">
+      <form (submit)="$event.preventDefault(); save()">
+        <div class="profil-grid">
+          <div class="profil-field">
+            <label for="lastName">Nom</label>
+            <input id="lastName" type="text" name="lastName" [(ngModel)]="lastName" [disabled]="!editing()" required maxlength="50">
+          </div>
+
+          <div class="profil-field">
+            <label for="email">Email</label>
+            <input id="email" type="email" name="email" [(ngModel)]="email" [disabled]="!editing()" required maxlength="100">
+          </div>
+
+          <div class="profil-field">
+            <label for="firstName">Prenom</label>
+            <input id="firstName" type="text" name="firstName" [(ngModel)]="firstName" [disabled]="!editing()" required maxlength="50">
+          </div>
+
+          <div class="profil-field">
+            <label for="phoneMobile">Telephone 1</label>
+            <input id="phoneMobile" type="tel" name="phoneMobile" [(ngModel)]="phoneMobile" [disabled]="!editing()" maxlength="20">
+          </div>
+
+          <div class="profil-field profil-field--placeholder"></div>
+
+          <div class="profil-field">
+            <label for="phoneLandline">Telephone 2</label>
+            <input id="phoneLandline" type="tel" name="phoneLandline" [(ngModel)]="phoneLandline" [disabled]="!editing()" maxlength="20">
+          </div>
+        </div>
+
+        @if (error()) {
+          <p class="profil-error">{{ error() }}</p>
+        }
+
+        @if (editing()) {
+          <div class="profil-actions">
+            <button type="button" class="profil-btn profil-btn--cancel" (click)="cancelEdit()" [disabled]="saving()">
+              Annuler
+            </button>
+            <button type="submit" class="profil-btn profil-btn--save" [disabled]="saving()">
+              {{ saving() ? 'Enregistrement...' : 'Enregistrer' }}
+            </button>
+          </div>
+        }
+      </form>
+    </div>
+  </section>
+}

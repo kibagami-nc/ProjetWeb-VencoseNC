@@ -46,7 +46,9 @@ public class UserMapper {
         return user;
     }
 
-    // Met a jour un User existant (on touche pas a l'id ni a la date d'inscription)
+    // Met a jour un User existant (on touche pas a l'id ni a la date d'inscription).
+    // Le mot de passe et l'etat actif ne sont modifies que s'ils sont fournis :
+    // la mise a jour du profil (nom, email, telephones) ne doit pas les ecraser.
     public void updateEntity(User user, UserDto dto) {
 
         user.setLastName(dto.getLastName());
@@ -54,7 +56,12 @@ public class UserMapper {
         user.setEmail(dto.getEmail());
         user.setPhoneMobile(dto.getPhoneMobile());
         user.setPhoneLandline(dto.getPhoneLandline());
-        user.setPassword(dto.getPassword());
-        user.setIsActive(dto.getIsActive());
+
+        if (dto.getPassword() != null && !dto.getPassword().isBlank()) {
+            user.setPassword(dto.getPassword());
+        }
+        if (dto.getIsActive() != null) {
+            user.setIsActive(dto.getIsActive());
+        }
     }
 }
