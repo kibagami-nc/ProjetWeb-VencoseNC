@@ -1,0 +1,103 @@
+# =========================================================
+# Changeset 002 : donnees de depart (jeu d'essai).
+#
+# Precondition : si la table "roles" contient deja des
+# donnees (base existante), le changeset est saute (MARK_RAN).
+#
+# Les INSERT restent en SQL (bloc "sql") : c'est le format
+# le plus lisible pour un jeu de donnees de cette taille.
+# =========================================================
+databaseChangeLog:
+  - changeSet:
+      id: 002-seed-data
+      author: manley
+      preConditions:
+        - onFail: MARK_RAN
+        - sqlCheck:
+            expectedResult: 0
+            sql: SELECT COUNT(*) FROM roles
+      changes:
+        - sql:
+            sql: |
+              -- 1. ROLES
+              INSERT INTO roles (role) VALUES
+              ('ROLE_USER'),
+              ('ROLE_ADMIN'),
+              ('ROLE_MODERATOR');
+
+              -- 2. USERS (registration_date = LocalDateTime, is_active = boolean)
+              INSERT INTO users (last_name, first_name, email, phone_mobile, phone_landline, password, registration_date, is_active) VALUES
+              ('Wamytan', 'Léa',     'lea.wamytan@example.nc',    '751234', '281234', '$2a$10$abcdefghijklmnopqrstuv1', '2026-01-10 09:15:00', true),
+              ('Goropo',  'Maxime',  'maxime.goropo@example.nc',  '762345', NULL,     '$2a$10$abcdefghijklmnopqrstuv2', '2026-02-03 14:30:00', true),
+              ('Tein',    'Sophie',  'sophie.tein@example.nc',    '773456', '283456', '$2a$10$abcdefghijklmnopqrstuv3', '2026-02-20 11:00:00', true),
+              ('Diahoue', 'Kévin',   'kevin.diahoue@example.nc',  '784567', NULL,     '$2a$10$abcdefghijklmnopqrstuv4', '2026-03-05 16:45:00', true),
+              ('Boula',   'Manon',   'manon.boula@example.nc',    '795678', NULL,     '$2a$10$abcdefghijklmnopqrstuv5', '2026-03-18 08:20:00', false);
+
+              -- 3. USERS_ROLES : Léa et Maxime = USER, Sophie = ADMIN+USER, Kévin = MODERATOR, Manon = USER
+              INSERT INTO users_roles (fk_id_user, fk_id_role) VALUES
+              (1, 1),
+              (2, 1),
+              (3, 1),
+              (3, 2),
+              (4, 3),
+              (5, 1);
+
+              -- 4. BIDS (price en XPF, location = ville/commune NC)
+              INSERT INTO bids (title, description, price, location, creation_date, fk_id_user) VALUES
+              ('Vélo VTT Decathlon Rockrider', 'VTT en très bon état, taille L, freins à disque. Peu servi, idéal pour les pistes de la Dumbéa.', 45000, 'Dumbéa', '2026-03-20 10:00:00', 1),
+              ('iPhone 13 128 Go',             'Téléphone sous garantie, aucune rayure, vendu avec coque et chargeur. Batterie à 92 pour cent.', 95000, 'Nouméa', '2026-03-22 13:30:00', 2),
+              ('Canapé 3 places tissu gris',   'Canapé confortable, démontable pour le transport. Cause déménagement, à récupérer sur place.', 60000, 'Mont-Dore', '2026-03-25 09:45:00', 1),
+              ('Planche de surf 6''2',          'Shortboard en bon état, quelques pets réparés proprement. Parfaite pour débuter à La Roche Percée.', 38000, 'Bourail', '2026-04-01 17:15:00', 3),
+              ('Frigo américain Samsung',      'Réfrigérateur grande capacité avec distributeur d''eau. Fonctionne parfaitement.', 130000, 'Nouméa', '2026-04-05 11:20:00', 4),
+              ('Lot de 50 BD Astérix et Tintin', 'Collection complète, état correct, idéale pour collectionneur. Vente en un seul lot.', 25000, 'Païta', '2026-04-08 15:00:00', 2);
+
+              -- 5. PHOTOS (chaque annonce a une ou plusieurs photos)
+              INSERT INTO photos (photo_url, fk_id_bid) VALUES
+              ('https://manleybouille.fr/uploads/vtt_1.jpg', 1),
+              ('https://manleybouille.fr/uploads/vtt_2.jpg', 1),
+              ('https://manleybouille.fr/uploads/iphone_1.jpg', 2),
+              ('https://manleybouille.fr/uploads/canape_1.jpg', 3),
+              ('https://manleybouille.fr/uploads/canape_2.jpg', 3),
+              ('https://manleybouille.fr/uploads/surf_1.jpg', 4),
+              ('https://manleybouille.fr/uploads/frigo_1.jpg', 5),
+              ('https://manleybouille.fr/uploads/bd_1.jpg', 6);
+
+              -- 6. THREADS (un fil de discussion est rattache a une annonce)
+              INSERT INTO threads (title, fk_id_bid) VALUES
+              ('Question sur la taille du VTT', 1),
+              ('Disponibilité iPhone',          2),
+              ('Négociation canapé',            3),
+              ('État de la planche',            4);
+
+              -- 7. USERS_THREADS (qui participe a quel fil : proprietaire de l'annonce + interesse)
+              INSERT INTO users_threads (fk_id_user, fk_id_thread) VALUES
+              (1, 1),  -- Léa (propriétaire VTT)
+              (3, 1),  -- Sophie (intéressée)
+              (2, 2),  -- Maxime (propriétaire iPhone)
+              (4, 2),  -- Kévin (intéressé)
+              (1, 3),  -- Léa (propriétaire canapé)
+              (5, 3),  -- Manon (intéressée)
+              (3, 4),  -- Sophie (propriétaire planche)
+              (2, 4);  -- Maxime (intéressé)
+
+              -- 8. MESSAGES (rattaches a un thread ET a un user)
+              INSERT INTO messages (content, sent_at, fk_id_thread, fk_id_user) VALUES
+              ('Bonjour, le VTT est-il toujours disponible en taille L ?', '2026-03-21 09:00:00', 1, 3),
+              ('Oui tout à fait, il est dispo. Tu peux passer le voir à Dumbéa quand tu veux.', '2026-03-21 09:30:00', 1, 1),
+              ('Super, je peux venir samedi matin alors ?', '2026-03-21 10:00:00', 1, 3),
+              ('L''iPhone est-il encore sous garantie ? Jusqu''à quand ?', '2026-03-23 14:00:00', 2, 4),
+              ('Oui, garantie Apple jusqu''en novembre 2026.', '2026-03-23 14:20:00', 2, 2),
+              ('Seriez-vous d''accord pour 50000 F au lieu de 60000 ?', '2026-03-26 11:00:00', 3, 5),
+              ('Je peux descendre à 55000 F, c''est mon dernier prix.', '2026-03-26 11:45:00', 3, 1),
+              ('La planche a-t-elle des pets non réparés ?', '2026-04-02 08:30:00', 4, 2);
+      rollback:
+        - sql:
+            sql: |
+              DELETE FROM messages;
+              DELETE FROM users_threads;
+              DELETE FROM threads;
+              DELETE FROM photos;
+              DELETE FROM bids;
+              DELETE FROM users_roles;
+              DELETE FROM users;
+              DELETE FROM roles;

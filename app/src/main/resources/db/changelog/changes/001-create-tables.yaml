@@ -1,0 +1,241 @@
+# =========================================================
+# Changeset 001 : creation des 8 tables du schema.
+#
+# Precondition : si la table "users" existe deja (base creee
+# avant Liquibase), le changeset est marque comme applique
+# (MARK_RAN) au lieu d'echouer sur les CREATE TABLE.
+# =========================================================
+databaseChangeLog:
+  - changeSet:
+      id: 001-create-tables
+      author: manley
+      preConditions:
+        - onFail: MARK_RAN
+        - not:
+            - tableExists:
+                tableName: users
+      changes:
+
+        # ---- 1. ROLES (independante) -------------------------
+        - createTable:
+            tableName: roles
+            columns:
+              - column:
+                  name: id_role
+                  type: BIGINT
+                  autoIncrement: true
+                  generationType: BY DEFAULT
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: role
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+
+        # ---- 2. USERS (independante) -------------------------
+        - createTable:
+            tableName: users
+            columns:
+              - column:
+                  name: id_user
+                  type: BIGINT
+                  autoIncrement: true
+                  generationType: BY DEFAULT
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: last_name
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: first_name
+                  type: VARCHAR(50)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: email
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+                    unique: true
+              - column:
+                  name: phone_mobile
+                  type: VARCHAR(20)
+              - column:
+                  name: phone_landline
+                  type: VARCHAR(20)
+              - column:
+                  name: password
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: registration_date
+                  type: TIMESTAMP
+              - column:
+                  name: is_active
+                  type: BOOLEAN
+
+        # ---- 3. BIDS (depend de users) -----------------------
+        - createTable:
+            tableName: bids
+            columns:
+              - column:
+                  name: id_bid
+                  type: BIGINT
+                  autoIncrement: true
+                  generationType: BY DEFAULT
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: title
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: description
+                  type: VARCHAR(1000)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: price
+                  type: INTEGER
+              - column:
+                  name: location
+                  type: VARCHAR(30)
+              - column:
+                  name: creation_date
+                  type: TIMESTAMP
+              - column:
+                  name: fk_id_user
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_bids_user
+                    references: users(id_user)
+
+        # ---- 4. PHOTOS (depend de bids) ----------------------
+        - createTable:
+            tableName: photos
+            columns:
+              - column:
+                  name: id_photo
+                  type: BIGINT
+                  autoIncrement: true
+                  generationType: BY DEFAULT
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: photo_url
+                  type: VARCHAR(255)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: fk_id_bid
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_photos_bid
+                    references: bids(id_bid)
+
+        # ---- 5. THREADS (depend de bids) ---------------------
+        - createTable:
+            tableName: threads
+            columns:
+              - column:
+                  name: id_thread
+                  type: BIGINT
+                  autoIncrement: true
+                  generationType: BY DEFAULT
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: title
+                  type: VARCHAR(100)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: fk_id_bid
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_threads_bid
+                    references: bids(id_bid)
+
+        # ---- 6. MESSAGES (depend de threads et users) --------
+        - createTable:
+            tableName: messages
+            columns:
+              - column:
+                  name: id_message
+                  type: BIGINT
+                  autoIncrement: true
+                  generationType: BY DEFAULT
+                  constraints:
+                    primaryKey: true
+              - column:
+                  name: content
+                  type: VARCHAR(1000)
+                  constraints:
+                    nullable: false
+              - column:
+                  name: sent_at
+                  type: TIMESTAMP
+              - column:
+                  name: fk_id_thread
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_messages_thread
+                    references: threads(id_thread)
+              - column:
+                  name: fk_id_user
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    foreignKeyName: fk_messages_user
+                    references: users(id_user)
+
+        # ---- 7. USERS_ROLES (jointure users <-> roles) -------
+        - createTable:
+            tableName: users_roles
+            columns:
+              - column:
+                  name: fk_id_user
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    foreignKeyName: fk_ur_user
+                    references: users(id_user)
+              - column:
+                  name: fk_id_role
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    foreignKeyName: fk_ur_role
+                    references: roles(id_role)
+
+        # ---- 8. USERS_THREADS (jointure users <-> threads) ---
+        - createTable:
+            tableName: users_threads
+            columns:
+              - column:
+                  name: fk_id_user
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    foreignKeyName: fk_ut_user
+                    references: users(id_user)
+              - column:
+                  name: fk_id_thread
+                  type: BIGINT
+                  constraints:
+                    nullable: false
+                    primaryKey: true
+                    foreignKeyName: fk_ut_thread
+                    references: threads(id_thread)

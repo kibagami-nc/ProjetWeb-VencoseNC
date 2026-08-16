@@ -1,0 +1,43 @@
+# =========================================================
+# Changeset 003 : vues de consultation.
+#
+# runOnChange: true + replaceIfExists: true : si on modifie
+# une vue dans ce fichier, Liquibase rejoue le changeset au
+# prochain demarrage (pas besoin d'un nouveau fichier).
+# =========================================================
+databaseChangeLog:
+  - changeSet:
+      id: 003-create-views
+      author: manley
+      runOnChange: true
+      changes:
+
+        - createView:
+            viewName: v_messages_details
+            replaceIfExists: true
+            selectQuery: |
+              SELECT
+                  m.id_message,
+                  m.content      AS message,
+                  m.sent_at      AS envoye_le,
+                  u.first_name   AS auteur_prenom,
+                  u.last_name    AS auteur_nom,
+                  t.title        AS sujet_discussion
+              FROM messages m
+                  JOIN users u   ON m.fk_id_user = u.id_user
+                  JOIN threads t ON m.fk_id_thread = t.id_thread
+
+        - createView:
+            viewName: v_annonces_vendeur
+            replaceIfExists: true
+            selectQuery: |
+              SELECT
+                  b.id_bid,
+                  b.title       AS titre,
+                  b.price       AS prix_xpf,
+                  b.location    AS commune,
+                  u.first_name  AS prenom_vendeur,
+                  u.last_name   AS nom_vendeur,
+                  u.email       AS contact
+              FROM bids b
+                  JOIN users u ON b.fk_id_user = u.id_user
