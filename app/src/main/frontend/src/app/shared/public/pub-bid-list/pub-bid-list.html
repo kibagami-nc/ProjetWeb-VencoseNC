@@ -1,5 +1,5 @@
 <section class="bid-list">
-  @for (bid of bids(); track bid.idBid) {
+  @for (bid of filteredBids(); track bid.idBid) {
     <article
       class="bid-card"
       (click)="modal.openBidDetails(bid)"
@@ -8,7 +8,7 @@
       role="button"
     >
       <div class="bid-image">
-        <img src="https://placehold.co/120x120?text=img" alt="Photo de l'annonce">
+        <img [src]="bidPhotoSrc(bid)" (error)="onImgError($event)" alt="Photo de l'annonce" loading="lazy">
       </div>
       <div class="bid-content">
         <h3 class="bid-title">{{ bid.title }}</h3>
@@ -19,6 +19,8 @@
       </div>
     </article>
   } @empty {
-    <p class="bid-empty">Aucune annonce pour le moment.</p>
+    <p class="bid-empty">
+      {{ search.query().trim() ? 'Aucune annonce ne correspond a votre recherche.' : 'Aucune annonce pour le moment.' }}
+    </p>
   }
 </section>

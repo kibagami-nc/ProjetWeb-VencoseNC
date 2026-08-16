@@ -6,7 +6,13 @@
   <div class="search-container">
     <div class="search-wrapper">
       <button class="search-category-btn" type="button">Catégories</button>
-      <input type="text" class="search-input" placeholder="Recherchez..." aria-label="Rechercher">
+      <input
+        type="text"
+        class="search-input"
+        placeholder="Recherchez..."
+        aria-label="Rechercher"
+        (input)="onSearch($event)"
+      >
       <app-icon class="search-icon" name="search" [strokeWidth]="2.5" />
     </div>
   </div>
