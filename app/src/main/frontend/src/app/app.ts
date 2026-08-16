@@ -7,6 +7,7 @@ import { PubNavbar } from './shared/public/pub-navbar/pub-navbar';
 import { PubFooter } from './shared/public/pub-footer/pub-footer';
 import { PubBidDetails } from './shared/public/pub-bid-details/pub-bid-details';
 import { PubBidCreate } from './shared/public/pub-bid-create/pub-bid-create';
+import { PubBidDelete } from './shared/public/pub-bid-delete/pub-bid-delete';
 import { Login } from './features/auth/login/login';
 import { Register } from './features/auth/register/register';
 import { Logout } from './features/auth/logout/logout';
@@ -16,7 +17,7 @@ import { AuthService } from './shared/services/auth.service';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, PubNavbar, PubFooter, Login, Register, Logout, PubBidDetails, PubBidCreate, ToastList],
+  imports: [RouterOutlet, PubNavbar, PubFooter, Login, Register, Logout, PubBidDetails, PubBidCreate, PubBidDelete, ToastList],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

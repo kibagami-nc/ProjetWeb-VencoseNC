@@ -1,6 +1,11 @@
 <app-pub-navbar></app-pub-navbar>
 <app-toast></app-toast>
-<router-outlet></router-outlet>
+
+<!-- Le contenu grandit pour remplir l'ecran : le footer reste colle tout en bas -->
+<main class="app-content">
+  <router-outlet></router-outlet>
+</main>
+
 @if (showFooter()) {
   <app-pub-footer></app-pub-footer>
 }
@@ -22,6 +27,9 @@
       }
       @if (modal.current() === 'new-bid' || modal.current() === 'edit-bid') {
         <app-pub-bid-create></app-pub-bid-create>
+      }
+      @if (modal.current() === 'delete-bid') {
+        <app-pub-bid-delete></app-pub-bid-delete>
       }
     </div>
   </div>
