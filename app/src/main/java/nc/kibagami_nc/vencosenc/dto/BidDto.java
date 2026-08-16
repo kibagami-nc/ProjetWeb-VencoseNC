@@ -1,6 +1,7 @@
 package nc.kibagami_nc.vencosenc.dto;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 import lombok.Getter;
 import lombok.Setter;
@@ -18,4 +19,7 @@ public class BidDto {
     private Long userId;
     private String userFirstName;
     private String userLastName;
+
+    // Photos de l'annonce, triees par id (la premiere sert de vignette cote front)
+    private List<PhotoDto> photos = List.of();
 }

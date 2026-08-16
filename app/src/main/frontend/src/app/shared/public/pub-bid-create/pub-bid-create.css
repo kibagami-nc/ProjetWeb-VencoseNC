@@ -55,20 +55,101 @@
   gap: 1.5rem;
 }
 
-.create-image {
+.create-photos {
   background-color: var(--bg-neutral);
   border-radius: 0.5rem;
   min-height: 260px;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.75rem;
   padding: 1rem;
+  cursor: pointer; /* toute la zone grise est cliquable pour ajouter une photo */
 }
 
-.create-image-text {
+.create-photos--full {
+  cursor: default; /* limite de photos atteinte : plus rien a ajouter */
+}
+
+.photo-tile {
+  cursor: default; /* les photos ne declenchent pas le selecteur */
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(90px, 1fr));
+  gap: 0.6rem;
+  align-content: start;
+}
+
+.photo-tile {
+  position: relative;
+  aspect-ratio: 1 / 1;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  background-color: var(--bg-placeholder);
+}
+
+.photo-tile img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.photo-remove {
+  position: absolute;
+  top: 0.25rem;
+  right: 0.25rem;
+  width: 1.5rem;
+  height: 1.5rem;
+  border: none;
+  border-radius: 50%;
+  background-color: var(--overlay);
+  color: var(--text-on-dark);
+  font-size: 1rem;
+  line-height: 1;
+  cursor: pointer;
+}
+
+.photo-remove:hover {
+  background-color: var(--danger);
+}
+
+/* Texte d'invite centre dans l'espace restant de la zone grise */
+.photo-cta {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.3rem;
   color: var(--text-muted);
+}
+
+.create-photos:hover .photo-cta {
+  color: var(--primary);
+}
+
+.create-photos--full:hover .photo-cta {
+  color: var(--text-muted);
+}
+
+.photo-cta-plus {
+  font-size: 2.2rem;
+  line-height: 1;
+}
+
+.photo-cta-text {
   font-size: 0.95rem;
   font-style: italic;
+}
+
+.photo-hint {
+  color: var(--text-muted);
+  font-size: 0.8rem;
+  font-style: italic;
+  text-align: center;
 }
 
 .create-fields {

@@ -1,10 +1,13 @@
 package nc.kibagami_nc.vencosenc.mapper;
 
+import java.util.Comparator;
+
 import org.springframework.stereotype.Component;
 
 import lombok.RequiredArgsConstructor;
 import nc.kibagami_nc.vencosenc.dto.BidDto;
 import nc.kibagami_nc.vencosenc.entity.Bid;
+import nc.kibagami_nc.vencosenc.entity.Photo;
 import nc.kibagami_nc.vencosenc.entity.User;
 import nc.kibagami_nc.vencosenc.repository.UserRepository;
 
@@ -14,6 +17,7 @@ public class BidMapper {
 
     // Sert a retrouver le User a partir du userId du DTO
     private final UserRepository userRepository;
+    private final PhotoMapper photoMapper;
 
     // Convertit une entite Bid en DTO (on garde juste le userId au lieu de tout le User)
     public BidDto toDto(Bid bid) {
@@ -33,6 +37,14 @@ public class BidMapper {
             dto.setUserId(user.getIdUser());
             dto.setUserFirstName(user.getFirstName());
             dto.setUserLastName(user.getLastName());
+        }
+
+        // Photos triees par id : la premiere ajoutee sert de vignette cote front
+        if (bid.getPhotos() != null) {
+            dto.setPhotos(bid.getPhotos().stream()
+                .sorted(Comparator.comparing(Photo::getIdPhoto))
+                .map(photoMapper::toDto)
+                .toList());
         }
 
         return dto;

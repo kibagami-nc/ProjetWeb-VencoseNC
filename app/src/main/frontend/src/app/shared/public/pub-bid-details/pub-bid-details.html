@@ -2,8 +2,26 @@
   <div class="bid-details">
     <button type="button" class="modal-close" (click)="modal.close()" aria-label="Fermer">&times;</button>
 
-    <div class="bid-details-image">
-      <img src="https://placehold.co/800x800?text=img" alt="Photo de l'annonce">
+    <div class="bid-details-gallery">
+      <div class="bid-details-image">
+        <img [src]="mainPhotoSrc()" (error)="onImgError($event)" alt="Photo de l'annonce">
+      </div>
+
+      @if (bid.photos.length > 1) {
+        <div class="bid-details-thumbs">
+          @for (photo of bid.photos; track photo.idPhoto; let i = $index) {
+            <button
+              type="button"
+              class="bid-details-thumb"
+              [class.is-active]="i === selectedPhoto()"
+              (click)="selectedPhoto.set(i)"
+              [attr.aria-label]="'Photo ' + (i + 1)"
+            >
+              <img [src]="photoSrc(photo.url)" (error)="onImgError($event)" alt="" loading="lazy">
+            </button>
+          }
+        </div>
+      }
     </div>
 
     <aside class="bid-details-info">

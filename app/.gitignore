@@ -31,3 +31,6 @@ build/
 
 ### VS Code ###
 .vscode/
+
+### Photos uploadees (donnees locales, jamais versionnees) ###
+uploads/

@@ -10,8 +10,10 @@ import org.springframework.web.server.ResponseStatusException;
 import lombok.RequiredArgsConstructor;
 import nc.kibagami_nc.vencosenc.dto.BidDto;
 import nc.kibagami_nc.vencosenc.entity.Bid;
+import nc.kibagami_nc.vencosenc.entity.Photo;
 import nc.kibagami_nc.vencosenc.mapper.BidMapper;
 import nc.kibagami_nc.vencosenc.repository.BidRepository;
+import nc.kibagami_nc.vencosenc.service.PhotoStorageService;
 
 @RestController
 @RequestMapping("/api/bid")
@@ -23,6 +25,7 @@ public class BidController {
 
     private final BidRepository bidRepository;
     private final BidMapper bidMapper;
+    private final PhotoStorageService photoStorageService;
 
     /*
      * Utilisation du BidDto.java pour l'affichage, suppression, modification et création
@@ -68,8 +71,14 @@ public class BidController {
     }
 
     // DELETE /api/bid/{id} -> supprime l'annonce correspondante
+    // Le cascade JPA supprime les lignes photos ; on efface ensuite les fichiers du disque
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        bidRepository.deleteById(id);
+
+        Bid bid = bidRepository.findById(id).orElseThrow();
+        List<String> photoUrls = bid.getPhotos().stream().map(Photo::getPhotoUrl).toList();
+
+        bidRepository.delete(bid);
+        photoUrls.forEach(photoStorageService::delete);
     }
 }

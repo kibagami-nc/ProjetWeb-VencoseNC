@@ -35,18 +35,57 @@
   color: var(--primary);
 }
 
+.bid-details-gallery {
+  display: flex;
+  flex-direction: column;
+  min-height: 0;
+}
+
 .bid-details-image {
+  flex: 1;
   background-color: var(--text);
   display: flex;
   align-items: center;
   justify-content: center;
   overflow: hidden;
+  min-height: 0;
 }
 
 .bid-details-image img {
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+.bid-details-thumbs {
+  display: flex;
+  gap: 0.5rem;
+  padding: 0.6rem;
+  background-color: var(--text);
+  overflow-x: auto;
+}
+
+.bid-details-thumb {
+  width: 64px;
+  height: 64px;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  cursor: pointer;
+  background: none;
+  flex-shrink: 0;
+}
+
+.bid-details-thumb.is-active {
+  border-color: var(--primary);
+}
+
+.bid-details-thumb img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
 }
 
 .bid-details-info {

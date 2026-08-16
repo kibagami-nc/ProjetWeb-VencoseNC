@@ -7,8 +7,66 @@
     <form class="create-form" (submit)="$event.preventDefault(); onSubmit()">
 
       <div class="create-grid">
-        <div class="create-image" aria-label="Zone de depot d'image">
-          <span class="create-image-text">Deposer une/des image(s)</span>
+        <!-- Un clic n'importe ou dans la zone grise ouvre le selecteur de fichiers
+             (sauf sur une photo existante ou son bouton de suppression) -->
+        <div
+          class="create-photos"
+          [class.create-photos--full]="totalPhotos() >= MAX_PHOTOS"
+          (click)="onPhotosZoneClick($event, fileInput)"
+          aria-label="Photos de l'annonce"
+        >
+          <input
+            #fileInput
+            type="file"
+            accept="image/jpeg,image/png,image/webp"
+            multiple
+            (change)="onFilesSelected($event)"
+            hidden
+          >
+          @if (totalPhotos() > 0) {
+          <div class="photo-grid">
+            <!-- Photos deja enregistrees (mode edition) -->
+            @for (photo of existingPhotos(); track photo.idPhoto) {
+              <div class="photo-tile">
+                <img [src]="photoSrc(photo.url)" alt="Photo de l'annonce">
+                <button
+                  type="button"
+                  class="photo-remove"
+                  (click)="removeExistingPhoto(photo)"
+                  aria-label="Supprimer la photo"
+                  title="Supprimer"
+                >&times;</button>
+              </div>
+            }
+
+            <!-- Nouvelles photos selectionnees (envoyees a la validation) -->
+            @for (photo of newPhotos(); track photo.previewUrl; let i = $index) {
+              <div class="photo-tile">
+                <img [src]="photo.previewUrl" alt="Nouvelle photo">
+                <button
+                  type="button"
+                  class="photo-remove"
+                  (click)="removeNewPhoto(i)"
+                  aria-label="Retirer la photo"
+                  title="Retirer"
+                >&times;</button>
+              </div>
+            }
+
+          </div>
+          }
+
+          <!-- Texte centre dans la zone grise (toute la zone est cliquable) -->
+          @if (totalPhotos() < MAX_PHOTOS) {
+            <div class="photo-cta">
+              <span class="photo-cta-plus">+</span>
+              <span class="photo-cta-text">Ajouter une/des photo(s)</span>
+            </div>
+          }
+
+          <span class="photo-hint">
+            {{ totalPhotos() }} / {{ MAX_PHOTOS }} photos &mdash; JPEG, PNG ou WebP, 10 Mo max
+          </span>
         </div>
 
         <div class="create-fields">
